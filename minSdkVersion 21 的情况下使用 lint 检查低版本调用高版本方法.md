@@ -3,18 +3,20 @@
 为了避免这个问题，开始寻找解决的办法，经过搜索后发现没有类似的问题，这里记录一下我的方法，希望能给有类似问题的朋友一点帮助。由于个人水平有限，有错误请指出。
 
 ## 思路
-1. 找到能够设置 Lint 检查 minSdkVersion 的方法；	
+* 找到能够设置 Lint 检查 minSdkVersion 的方法。
+
 很遗憾，没能找到，有的话也就没有此文章了。	
 不过我已经向 Google 提出了 [Feature Request](https://issuetracker.google.com/issues/130791559)，也不知道会不会被采纳。
 
-2. 查看 AGP(Android Gradle Plugin) 和 Lint 源码， 找到关键步骤，通过 Gradle 插入 Task 调用 `setMinSdkVersion()`。	
+* 查看 AGP(Android Gradle Plugin) 和 Lint 源码， 找到关键步骤，通过 Gradle 插入 Task 调用 `setMinSdkVersion()`。		
 很遗憾，由个人水平有限，而且这个方法花费时间较多，所以耗费一段时间后就放弃了。这里贴出一下相应源码解析:
 [Android Lint工作原理剖析](http://www.androidchina.net/5106.html)  
 [
 从Android Plugin源码开始彻底理解gradle构建：初识AndroidDSL（一)](https://blog.csdn.net/verymrq/article/details/80358111)	
 [Android Gradle Plugin源码分析](https://www.jianshu.com/p/11f030b2034f)
 
-3. 自定义 Lint Rules，复制 Api 相应的源码，更改源码中的 `minSdkVersion`，偷梁换柱。	
+* 自定义 Lint Rules，复制 Api 相应的源码，更改源码中的 `minSdkVersion`，偷梁换柱。		
+
 可行性高，本文后续就讲解该方案的实现过程。
 
 ## 自定义 Lint Rules，偷梁换柱
